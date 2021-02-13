@@ -10,12 +10,12 @@ const getLink = () => {
 //onclick search button a Event listener
 const searchSong = () => {
     const wholeLink = getLink();
+    toggleSpinner()
     fetch(wholeLink)
     .then(res => res.json())
     .then(data => {
         // console.log(data.data)
         const lyricsBox = document.getElementById("song-lyrics");
-        
         const songs = document.getElementById("songs-container");
         const arrayOfMusics = data.data;
         songs.innerText = "";
@@ -37,10 +37,10 @@ const searchSong = () => {
                     <button onclick='getLyrics("${element.artist.name}","${element.title}" )' class="btn btn-success">get Lyrics</button>
                 </div>
                 </div>
-            
             `
             song.innerHTML = musicInfo;
             songs.appendChild(song);
+            toggleSpinner()
 
             
         });
@@ -65,6 +65,12 @@ const getLyrics = (author,title) => {
 const showLyrics = (lyric) => {
     const lyricsBox = document.getElementById("song-lyrics");
     lyricsBox.innerText = lyric;
+}
+const toggleSpinner = () => {
+    const spinner = document.getElementById("toggle-spinner");
+    const songs = document.getElementById("songs-container");
+    spinner.classList.toggle("d-none");
+    songs.classList.toggle("d-none");
 }
 
 
